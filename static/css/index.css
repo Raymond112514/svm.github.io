@@ -273,6 +273,78 @@ body {
   border-radius: 6px;
 }
 
+.robomimic-results-figure {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.robomimic-results-legend {
+  display: block;
+  max-width: 65%;
+  height: auto;
+  margin: 0 auto 0.15rem;
+  transform: translateX(1.25rem);
+}
+
+.robomimic-results-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 auto;
+  max-width: 35%;
+}
+
+.robomimic-results-row img {
+  width: 0;
+  min-width: 0;
+  height: auto;
+  border-radius: 6px;
+}
+
+.robomimic-results-row img:first-child {
+  flex: 1.15;
+}
+
+.robomimic-results-row img:last-child {
+  flex: 1.00;
+}
+
+.extraction-results-figure {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.extraction-results-legend {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 0.5rem;
+  transform: translateX(1.25rem);
+}
+
+.extraction-results-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0 auto;
+  max-width: 52%;
+}
+
+.extraction-results-row img {
+  width: 0;
+  min-width: 0;
+  height: auto;
+  border-radius: 6px;
+}
+
+.extraction-results-row img:first-child {
+  flex: 1.15;
+}
+
+.extraction-results-row img:not(:first-child) {
+  flex: 1;
+}
+
 .result-figure {
   margin-bottom: 1.5rem;
 }
