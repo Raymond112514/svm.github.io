@@ -2,15 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SVM: Learning Process Rewards via Success Visitation Matching for Efficient RL</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+<!--   <script>
     window.dataLayer = window.dataLayer || [];
 
     function gtag() {
@@ -20,7 +17,7 @@
     gtag('js', new Date());
 
     gtag('config', 'G-PYVRSFMDRL');
-  </script>
+  </script> -->
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -78,23 +75,23 @@
           <h1 class="title is-1 publication-title">Learning Process Rewards via Success Visitation Matching for Efficient RL</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="">Raymond Tsao</a><sup>1</sup>,</span>
+              <a href="">Raymond Tsao</a>,</span>
             <span class="author-block">
-              <a href="">Andrew Wagenmaker</a><sup>1</sup>,</span>
+              <a href="">Andrew Wagenmaker</a>,</span>
             <span class="author-block">
-              <a href="">Sergey Levine</a><sup>1</sup>,
+              <a href="">Sergey Levine</a>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of California, Berkeley,</span>
+            <span class="author-block">University of California, Berkeley</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -103,7 +100,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -113,12 +110,12 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (coming soon)</span>
                   </a>
               </span>
             </div>
@@ -143,14 +140,11 @@
     </div>
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-three-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            In many modern applications of reinforcement learning (RL), the natural reward for a task of interest is inherently sparse: a reward of 0 is given everywhere except when the task is completed, when a reward of +1 is given. Training a policy to maximize such a sparse reward requires solving a challenging credit assignment problem, leading to slow or ineffective RL improvement.
-          </p>
-          <p>
-            We propose a simple approach to transform a sparse outcome reward into a dense process reward. Our approach, Success Visitation Matching (SVM), relies on training a discriminator to distinguish between successful and unsuccessful trajectories. The discriminator is then used as a reward that incentivizes the RL policy to match the state-action visitations associated with success while avoiding those associated with failure. Focusing on finetuning of robotic control policies, we show that this reward leads to significantly faster RL finetuning performance on both simulated and real-world manipulation tasks, while provably preserving the optimal policy.
+            In many modern applications of reinforcement learning (RL), the natural reward for a task of interest is inherently <i>sparse</i>: a reward of 0 is given everywhere except when the task is completed, when a reward of +1 is given. Training a policy to maximize such a sparse reward requires solving a challenging credit assignment problem, leading to slow or ineffective RL improvement. We propose a simple approach to transform a sparse \emph{outcome} reward into a dense <i>process</i> reward. Our approach relies on training a discriminator to distinguish between previous successful and unsuccessful trajectories, and using this discriminator to incentivize the RL-learned policy to match the state-action visitations of successful trajectories, while avoiding those of unsuccessful trajectories. By incentivizing the policy to match the visitations over all states, not just those that correspond to task success, this reward provides dense feedback on whether progress is being made towards task completion, and, we show, provably achieves this without changing the optimal policy. Focusing on finetuning of robotic control policies, we demonstrate that our approach leads to significantly faster RL finetuning performance on both simulated and real-world manipulation tasks, as compared to simply maximizing the sparse outcome reward.
           </p>
         </div>
       </div>
@@ -170,40 +164,51 @@
         </figure>
         <div class="content has-text-justified">
           <p>
-            We consider the problem of finetuning a pretrained policy $\pi_{\text{pre}}$ using a sparse outcome reward. To enable efficient RL finetuning, we seek a dense process reward that satisfies two desiderata:
+            We consider the problem of finetuning a pretrained policy $\pi_{\text{pre}}$ to maximize a sparse outcome reward $r^{\mathrm{out}}$. To enable efficient RL finetuning, we seek to design a dense process reward that:
           </p>
           <p class="method-subpoint">
-            (a) It provides step-level feedback that guides the learner toward successful states, and
+            (a) Provides dense step-level feedback guiding the learner toward successful states, and
           </p>
           <p class="method-subpoint">
-            (b) It preserves the optimal policies under the original outcome reward.
+            (b) Peserves the optimal policies under the original outcome reward.
           </p>
           <p>
-            Our approach is based on a simple principle: given past trajectories labeled by outcome reward $r^{\mathrm{out}}$, reward the learner for visiting state-actions that are associated with successful episodes, and penalize those associated with unsuccessful episodes. Concretely, let $\mathcal{D}^+$ and $\mathcal{D}^-$ denote the state-action pairs from successful and unsuccessful trajectories, we train a discriminator to distinguish these two sets:
+            Our approach is based on a simple principle: given past trajectories labeled by outcome reward $r^{\mathrm{out}}$, reward the learner for visiting state-actions that are associated with successful episodes, and penalize those associated with unsuccessful episodes. Concretely, denoting $\mathfrak{D}^+$ and $\mathfrak{D}^-$ the state-action pairs from successful and unsuccessful trajectories, respectively, we train a discriminator to distinguish these two sets:
             
-            $$\widehat{f}(s,a) = {\text{argmin}_{f}}\; \mathbb{E}_{(s, a)\sim \mathcal{D}^+} [\log f(s,a)]+ \mathbb{E}_{(s, a)\sim \mathcal{D}^-}[\log (1-f(s,a))]$$
+            $$\widehat{f}(s,a) = {\text{argmin}_{f}}\; \mathbb{E}_{(s, a)\sim \mathfrak{D}^+} [\log f(s,a)]+ \mathbb{E}_{(s, a)\sim \mathfrak{D}^-}[\log (1-f(s,a))]$$
             
-            We then define the <b>success visitation matching (SVM) reward</b> as the discriminator logit:
+            We then define the <b>success visitation matching (SVM) process reward</b> with the discriminator logit:
             
-            $$r^{\mathrm{svm}}(s,a)=\log \frac{\widehat{f}(s,a)}{1-\widehat{f}(s,a)}$$
+            $$r^{\mathrm{svm}}(s,a)= r^{\mathrm{out}}(s) + \lambda \cdot \mathrm{clip}_\beta \left ( \log \frac{\widehat{f}(s,a)}{1-\widehat{f}(s,a)} \right )$$
             
-            This yields a dense process reward that encourages the learner to visit states likely to lead to success based on past observations. In our paper, we show that this reward provably preserves the optimal policies under the outcome reward, thereby satisfying both desiderata above.
+            where $\mathrm{clip}_\beta(\cdot)$ clips the value to be within the range $[-\beta,\beta]$. This yields a dense process reward that encourages the learner to visit states likely to lead to success based on past observations---states where $\widehat{f}(s,a)$ is large---while balancing this with the true outcome reward. We show the following:
+
+            <div class="theorem-box">
+              <strong>Theorem (informal).</strong>
+              Assuming our environment has deterministic transitions, the optimal policy under
+              $r^{\mathrm{svm}}$ is the same as the optimal policy under $r^{\mathrm{out}}$.
+            </div>
+
+
+            Thus, not only does $r^{\mathrm{svm}}$ provide dense supervision guiding the learner to the goal, but it does not change the optimal policy.
           </p>
           <p>
 
           </p>
         </div>
+        <h3 class="title is-4 result-subtitle">RL Finetuning with SVM Process Rewards</h3>
+        We propose running RL with the SVM process reward, iteratively updating $\widehat{f}$ online as new observations are collected.
         <div class="algorithm content has-text-left">
           <p class="algorithm-caption"><strong>Algorithm: </strong> Reinforcement Learning with SVM Process Reward</p>
           <ol class="algorithm-steps">
             <li><strong>Input:</strong> $r^{\mathrm{svm}}$ weight $\lambda$, $r^{\mathrm{svm}}$ clipping $\beta$, pretrained $\pi_{\mathrm{pre}}$ (optional), initial rollouts $N_0$ (optional)</li>
             <li>Collect $N_0$ trajectories with $\pi_{\mathrm{pre}}$, set $\mathcal{D}^+$ to successful trajectories, $\mathcal{D}^-$ to all others</li>
-            <li>Initialize discriminator $f_\theta$ on $\mathcal{D}^+$ and $\mathcal{D}^-$</li>
+            <li>Initialize discriminator $\widehat{f}$ on $\mathcal{D}^+$ and $\mathcal{D}^-$</li>
             <li>Initialize $\pi_1$ to $\pi_0$ or random policy</li>
             <li><strong>for</strong> $t = 1, 2, 3, \ldots$ <strong>do</strong></li>
             <li class="algorithm-indent">Run $\pi_t$ for one episode, add trajectory to $\mathcal{D}^+$ if it is successful, otherwise to $\mathcal{D}^-$</li>
-            <li class="algorithm-indent">Update $f_\theta$ on $\mathcal{D}^+$ and $\mathcal{D}^-$</li>
-            <li class="algorithm-indent">Update $\pi_t$ to $\pi_{t+1}$ by maximizing reward $r^{\mathrm{svm}}_h(s,a) = r^{\mathrm{out}}(s) + \lambda \cdot \mathrm{clip}_\beta\left(\log \frac{f_\theta(s,a)}{1-f_\theta(s,a)}\right)$</li>
+            <li class="algorithm-indent">Update $\widehat{f}$ on $\mathcal{D}^+$ and $\mathcal{D}^-$</li>
+            <li class="algorithm-indent">Update $\pi_t$ to $\pi_{t+1}$ by maximizing reward $r^{\mathrm{svm}}(s,a) = r^{\mathrm{out}}(s) + \lambda \cdot \mathrm{clip}_\beta\left(\log \frac{\widehat{f}(s,a)}{1-\widehat{f}(s,a)}\right)$</li>
             <li><strong>end for</strong></li>
           </ol>
         </div>
@@ -230,40 +235,34 @@
             <img src="./static/images/scene_images/robocasa_mushroom_scene.png" alt="RoboCasa mushroom scene">
           </div>
         </details>
-        <div class="content has-text-justified">
-          <p>
-            We evaluate SVM rewards in the RL finetuning regime on the $\texttt{LIBERO}$ benchmarks and $\texttt{RoboCasa}$ pick-and-place tasks, using DSRL and Residual RL as the finetuning algorithms. Across all tasks, SVM rewards lead to significantly faster finetuning compared to outcome rewards.
-          </p>
-        </div>
         <figure class="sim-results-figure">
           <img class="sim-results-legend" src="./static/images/sim_results/legend.png" alt="Results legend">
           <img class="sim-results-all" src="./static/images/sim_results/all_results.png" alt="All simulation results">
         </figure>
-        <h3 class="title is-4 result-subtitle">SVM Process Rewards Enable Efficient Real-World RL</h3>
         <div class="content has-text-justified">
-          <p>Next, we demonstrate that SVM scales to real-world robotic RL finetuning. We run DSRL on three real-world WidowX tasks: $\texttt{Pick and Place}$, $\texttt{Open Drawer}$, and $\texttt{Cover Knife}$. Across all three tasks, SVM rewards lead to significantly faster RL finetuning compared to using outcome rewards alone. The video below provides a side-by-side comparison of DSRL with and without SVM rewards.</p>
+          <p>
+            We evaluate SVM rewards in the RL finetuning regime on the $\texttt{LIBERO}$ benchmarks and $\texttt{RoboCasa}$ pick-and-place tasks, using DSRL and Residual RL as the finetuning algorithms. Across all tasks, SVM rewards lead to significantly faster finetuning compared to finetuning on only outcome rewards, as well as other reward shaping baselines.
+          </p>
         </div>
+        <h3 class="title is-4 result-subtitle">SVM Process Rewards Enable Efficient Real-World RL</h3>
         <figure class="result-figure">
           <img class="result-img-inset" src="./static/images/widowx.png" alt="Real-world WidowX robot results for pick and place, open drawer, and cover knife tasks">
-          <video controls muted playsinline>
+          <video autoplay loop muted playsinline controls>
             <source src="./static/videos/widowx.mp4" type="video/mp4">
           </video>
         </figure>
-        <h3 class="title is-4 result-subtitle">Finetuning VLAs with SVM Process Rewards</h3>
         <div class="content has-text-justified">
-          <p>We further show that SVM can improve the efficiency of running RL finetuning on pretrained generalist policies. Here, we consider running DSRL of $\pi_0$ on selected LIBERO tasks. We see that the
-            SVM process reward again yields substantial gains in sample efficiency, requiring roughly 2X fewer environment steps to reach 90% success, as compared to RL without reward shaping.</p>
+          <p>We demonstrate that SVM scales to real-world robotic RL finetuning. We run DSRL on three real-world WidowX tasks: $\texttt{Pick and Place}$, $\texttt{Open Drawer}$, and $\texttt{Cover Knife}$. Across all three tasks, SVM rewards lead to significantly faster RL finetuning compared to using outcome rewards alone. The video provides a side-by-side comparison of DSRL with and without SVM rewards.</p>
         </div>
+        <h3 class="title is-4 result-subtitle">Finetuning VLAs with SVM Process Rewards</h3>
         <figure class="result-figure">
           <img class="result-img-inset result-img-inset-sm" src="./static/images/pi0.png" alt="Finetuning VLAs with SVM process rewards">
         </figure>
-        <h3 class="title is-4 result-subtitle">RL from Demonstrations with SVM Process Rewards</h3>
         <div class="content has-text-justified">
-          <p>Next, we seek to understand whether SVM rewards can also lead to improvement when running RL from scratch given a set of successful demonstrations. In the $\texttt{Robomimic}$ benchmark with RLPD, we see that SVM leads to substantial gains over running RL on
-          only the outcome reward. However, the performance of SVM is essentially identical to that of GAIL. We hypothesize that in this case, the
-          rewards obtained by GAIL and SVM are approximately equivalent, since the discriminator learned by SVM and GAIL is trained on
-          similar sets of positive and negative examples. </p>
+          <p>We further show that SVM can improve the efficiency of running RL finetuning on pretrained generalist policies. Here, we consider running DSRL on $\pi_0$ in selected $\texttt{LIBERO}$ tasks. We see that the
+            SVM process reward again yields substantial gains in sample efficiency, requiring roughly 2x fewer environment steps to reach 90% success, as compared to RL without reward shaping.</p>
         </div>
+        <h3 class="title is-4 result-subtitle">RL from Demonstrations with SVM Process Rewards</h3>
         <figure class="robomimic-results-figure">
           <img class="robomimic-results-legend" src="./static/images/sublegend.png" alt="Results legend">
           <div class="robomimic-results-row">
@@ -271,16 +270,13 @@
             <img src="./static/images/robomimic_sac_square.png" alt="Robomimic square task results">
           </div>
         </figure>
-        <h3 class="title is-4 result-subtitle">How can we most effectively extract a policy from the SVM discriminator?</h3> 
         <div class="content has-text-justified">
-          <p>Given the discriminator $\widehat{f}$ or the successful episodes, one could in principle extract a policy in several other ways. We compare SVM against three such alternatives:</p>
-          <ol>
-            <li><strong>DSRL + BC:</strong> We add a behavioral cloning regularizer on successful transitions from $\mathcal{D}^+$.</li>
-            <li><strong>$\widehat{f}$ Sampling:</strong> We use the discriminator for best-of-N action sampling.</li>
-            <li><strong>$\widehat{f}$ Maximization:</strong> We train the policy to maximize the discriminator score instead of a learned Q-function.</li>
-          </ol>
-          <p>We find that SVM is significantly more effective than these alternative policy extraction methods.</p>
+          <p>Next, we seek to understand whether SVM rewards can also lead to improvement when running RL from scratch given a set of successful demonstrations. In the $\texttt{Robomimic}$ benchmark with RLPD, we see that SVM leads to substantial gains over running RL on
+          only the outcome reward. However, the performance of SVM is essentially identical to that of GAIL. We hypothesize that in this case, the
+          rewards obtained by GAIL and SVM are approximately equivalent, since the discriminator learned by SVM and GAIL is trained on
+          similar sets of positive and negative examples. </p>
         </div>
+        <h3 class="title is-4 result-subtitle">How can we most effectively extract a policy from the SVM discriminator?</h3> 
         <figure class="extraction-results-figure">
           <img class="extraction-results-legend" src="./static/images/classifier_usage_legend_horizontal.png" alt="Classifier usage results legend">
           <div class="extraction-results-row">
@@ -289,49 +285,46 @@
             <img src="./static/images/extraction/dsrl_scene3.png" alt="Policy extraction results scene 3">
           </div>
         </figure>
+        <div class="content has-text-justified">
+          <p>Given the discriminator $\widehat{f}$ or the successful episodes, one could in principle extract a policy in several other ways. We compare SVM against three such alternatives:</p>
+          <ol>
+            <li><strong>DSRL-BC:</strong> We add a behavioral cloning regularizer on successful transitions from $\mathcal{D}^+$.</li>
+            <li><strong>$\widehat{f}$ Sampling:</strong> We use the discriminator for best-of-$N$ action sampling.</li>
+            <li><strong>$\widehat{f}$ Maximization:</strong> We train the policy to maximize the discriminator score directly instead of a learned Q-function.</li>
+          </ol>
+          <p>We find that SVM is significantly more effective than these alternative policy extraction methods.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+<section class="section" id="Citation">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">BibTeX</h2>
+        <pre><code>@article{tsao2026learning,
+  author    = {Tsao, Raymond and Wagenmaker, Andrew and Levine, Sergey},
+  title     = {Learning Process Rewards via Success Visitation Matching for Efficient RL},
+  year      = {2026},
 }</code></pre>
+      </div>
+    </div>
   </div>
 </section>
 
 
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
           <p>
             This website is licensed under a <a rel="license"
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
+            Commons Attribution-ShareAlike 4.0 International License</a>, and is based on the <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template.
           </p>
         </div>
       </div>

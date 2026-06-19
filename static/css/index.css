@@ -418,3 +418,11 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+.theorem-box {
+  border: 2px solid #363636;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  background: #fff;
+}
