@@ -291,9 +291,20 @@
         <h3 class="title is-4 result-subtitle">SVM Process Rewards Enable Efficient Real-World RL</h3>
         <figure class="result-figure">
           <img class="result-img-inset" src="./static/images/widowx.png" alt="Real-world WidowX robot results for pick and place, open drawer, and cover knife tasks">
-          <video autoplay loop muted playsinline controls>
-            <source src="./static/videos/widowx.mp4" type="video/mp4">
-          </video>
+          <div class="result-video-row">
+            <div class="result-video-item">
+              <video autoplay loop muted playsinline controls>
+                <source src="./static/videos/widowx.mp4" type="video/mp4">
+              </video>
+              <p class="result-video-caption">Outcome v.s. SVM finetuning</p>
+            </div>
+            <div class="result-video-item">
+              <video autoplay loop muted playsinline controls>
+                <source src="./static/videos/montage.mp4" type="video/mp4">
+              </video>
+              <p class="result-video-caption">Converged policy trained with SVM</p>
+            </div>
+          </div>
         </figure>
         <div class="content has-text-justified">
           <p>We demonstrate that SVM scales to real-world robotic RL finetuning. We run DSRL on three real-world WidowX tasks: $\texttt{Pick and Place}$, $\texttt{Open Drawer}$, and $\texttt{Cover Knife}$. Across all three tasks, SVM rewards lead to significantly faster RL finetuning compared to using outcome rewards alone. The video provides a side-by-side comparison of DSRL with and without SVM rewards.</p>

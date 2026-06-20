@@ -458,6 +458,43 @@ body {
   border-radius: 6px;
 }
 
+.result-video-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.result-video-item {
+  flex: 1;
+  min-width: 0;
+  max-width: 48%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-video-row video {
+  display: block;
+  width: 85%;
+  height: auto;
+  margin: 0;
+  border-radius: 6px;
+}
+
+.result-video-item:nth-child(2) video {
+  transform: translateY(-0.5rem);
+}
+
+.result-video-caption {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+}
+
 .results-carousel {
   overflow: hidden;
 }
