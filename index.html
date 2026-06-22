@@ -247,7 +247,7 @@
           </p>
 
           <p>
-            To understand what the SVM reward learns, we visualize the reward values along several trajectories throughout training on five different $\texttt{LIBERO}$ tasks. We see that after a relatively small number of training episodes, the SVM reward has already converged to rewarding trajectories that are close to the optimal behavior, while penalizing trajectories that deviate from this.
+            To understand what the SVM reward learns, we visualize the reward values along several trajectories throughout training on five different $\texttt{LIBERO}$ tasks. We see that after a relatively small number of environment steps collected during training, the SVM reward has already converged to rewarding trajectories that are close to the optimal behavior, while penalizing trajectories that deviate from this.
           </p>
         </div>
         <figure class="reward-viz-figure">
@@ -285,7 +285,7 @@
           </div>
           <div class="reward-viz-controls">
             <input type="range" id="reward-viz-slider" class="reward-viz-slider" min="0" max="13" value="0" step="1">
-            <p class="reward-viz-step" id="reward-viz-step">Training step: 0</p>
+            <p class="reward-viz-step" id="reward-viz-step">Environment steps: 0</p>
           </div>
           <div class="reward-viz-colorbar">
             <span class="reward-viz-colorbar-label">−20</span>
